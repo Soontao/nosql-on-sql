@@ -1,2 +1,3 @@
-# nosql-on-sql
-Experimental NoSQL db based on sql engine. 
+# NoSQL Database based on SQL engine
+
+**Experimental** NoSQL db based on sql engine. 
