@@ -38,3 +38,36 @@ func TestParseJSON(t *testing.T) {
 		})
 	}
 }
+
+func TestParseJSONArray(t *testing.T) {
+	type args struct {
+		inputString string
+	}
+	tests := []struct {
+		name string
+		args args
+		want JSONArray
+	}{
+		{
+			name: "JSON Array parse",
+			args: args{
+				inputString: "[]",
+			},
+			want: JSONArray{},
+		},
+		{
+			name: "JSON Array with value parse",
+			args: args{
+				inputString: `["hello"]`,
+			},
+			want: JSONArray{"hello"},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := ParseJSONArray(tt.args.inputString); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("ParseJSONArray() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
