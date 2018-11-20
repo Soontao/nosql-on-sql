@@ -21,6 +21,16 @@ type NumberInfo struct {
 	length    int
 }
 
+// Diff Object Type
+// return diff information
+func (o *ObjectInfo) Diff(before ObjectInfo, after ObjectInfo) []ObjectInfo {
+	rt := []ObjectInfo{}
+	if before.isObject && after.isObject {
+		return rt
+	}
+	return rt
+}
+
 // GetInnerInfo for object or array object
 func (o *ObjectInfo) GetInnerInfo() map[string]ObjectInfo {
 	rt := map[string]ObjectInfo{}
@@ -47,6 +57,7 @@ func (o *ObjectInfo) GetInnerInfo() map[string]ObjectInfo {
 	return rt
 }
 
+// Value info
 func (o *ObjectInfo) Value() interface{} {
 	return o.value
 }
