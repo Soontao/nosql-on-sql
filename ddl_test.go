@@ -1,6 +1,8 @@
 package nosql
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestGenerateDDLFromDefination(t *testing.T) {
 	type args struct {
@@ -36,6 +38,33 @@ func TestGenerateDDLFromDefination(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := GenerateDDLFromDefination(tt.args.table); got != tt.want {
 				t.Errorf("GenerateDDLFromDefination() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestGenerateAlterModifyDDL(t *testing.T) {
+	type args struct {
+		table Table
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{
+			"simple test",
+			args{Table{"User3", map[string]Column{
+				"UserName": Column{"UserName", "VARCHAR", 32},
+				"Age":      Column{"Age", "INTEGER", 2},
+			}}},
+			"ALTER TABLE User3 MODIFY UserName VARCHAR(32);ALTER TABLE User3 MODIFY Age INTEGER(2);",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := GenerateAlterModifyDDL(tt.args.table); got != tt.want {
+				t.Errorf("GenerateAlterModifyDDL() = %v, want %v", got, tt.want)
 			}
 		})
 	}
